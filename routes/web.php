@@ -1,8 +1,17 @@
 <?php
 
-use TCG\Voyager\Voyager;
-use TCG\Voyager\Models\Post;
+// use TCG\Voyager\Voyager;
+// use TCG\Voyager\Models\Post;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use JeroenNoten\LaravelAdminLte\AdminLte;
+use App\Http\Controllers\RegisterController;
+
+
+
 
 
 /*
@@ -23,13 +32,6 @@ Route::get('/', function () {
     );
 });
 
-// Route::get('/home', function () {
-//     return view(
-//         'home',
-//         ["title" => "Home"]
-//     );
-// });
-
 route::get('/about', function () {
     return view('about', [
         "title" => "About",
@@ -37,13 +39,10 @@ route::get('/about', function () {
     ]);
 });
 
-route::get('/posts', function () {
+route::get('/posts', [PostController ::class, 'index']);// unutk manggil controller
 
-    return view('posts', [
-        "title" => "posts",
-        "posts" =>post::all()// method a;;
-    ]);
-});
+
+route::get('/posts/{slug}',[PostController :: class, 'show']);
 
 
 route::get('/blog', function () {
@@ -67,9 +66,19 @@ route::get('/blog', function () {
 //single post halaman
 route::get('posts/{slug}', function ($slug){
     return view('post');
-
 });
 
-route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
-});
+// AdminLte::routes();
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/home', function() {
+    return view('home'); })->name('home')->middleware('auth');
+
+Route::get('/login',[LoginController::class, 'index']);
+
+Route::get('/register', [RegisterController::class, 'index']);
+
+Route::post('/register', [RegisterController::class, 'store']);
