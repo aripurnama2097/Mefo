@@ -1,4 +1,4 @@
-@extends('layouts.main') 
+@extends('layouts.master') 
 
 @section('container')
 <h1>About Page </h1>

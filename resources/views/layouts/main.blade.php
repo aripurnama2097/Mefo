@@ -11,19 +11,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/style.css">
     <title>Laravel | {{$title}}</title>
-
-    <style>
-      .body {
-    background-image: url('/public/css/post2.jpg');
-    border-radius: 50px;
-}
-
-  .container{
-    background-image: url('/public/css/post2.jpg');
-    border-radius: 50px;
-}
-
-      </style>
   </head>
   <body>
 

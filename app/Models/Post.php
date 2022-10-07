@@ -2,24 +2,35 @@
 
 namespace App\Models;
 
-// use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
-class post 
+class Post extends model
 {
+   use HasFactory,Sluggable;
+
    private static $blog_posts = [
     
     "This section is meant for users who are installing Voyager on an already existing Laravel installation or for users who want to perform a manual install. If this is not the case, you should go back to the installation documentation or skip this section.
     The first thing you should do is publish the assets that come with Voyager. You can do that by running the following commands"
    ];
 
-   public static function all()
-   {
-    return self::$blog_posts; // property static gunakna self, dynmaic this
-   }
+   // public static function all()
+   // {
+   //  return self::$blog_posts; // property static gunakna self, dynmaic this
+   // }
 
    public static function find ($slug){
     $posts= static::all();
     return $posts->fistwhere('slug', $slug);
+   }
+
+   public function sluggable(): array {
+      return [
+         'slug' => [
+            'source' => 'title'
+         ]
+      ];
    }
 }
